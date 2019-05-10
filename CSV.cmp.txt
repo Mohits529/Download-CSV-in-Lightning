@@ -1,0 +1,42 @@
+<aura:component controller="exportmetadata" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="listOptions" type="List" default="[]"/>
+    <aura:attribute name="defaultOptions" type="List" default="[]"/>
+    <aura:attribute name="requiredOptions" type="List" default="[]"/>
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+    <aura:attribute name="wrapperList" type="exportmetadatawrapper[]"/>
+       
+    <lightning:button variant="brand" label="Download selected object as csv using Lightning" iconName="utility:download" iconPosition="left" onclick="{! c.downloadCsv }" />
+     
+  <lightning:button variant="brand" label="Download selected object as excel using vfPage" iconName="utility:download" iconPosition="left" onclick="{! c.downloadCsvinVfpage }" />
+
+    
+    <lightning:dualListbox aura:id="selectOptions" name="Select Options"  label= "Select Options"
+                           sourceLabel="Available Options"
+                           selectedLabel="Selected Options"
+                           options="{! v.listOptions }"
+                           value="{! v.defaultOptions }"
+                           requiredOptions="{! v.requiredOptions }"
+                           onchange="{! c.handleChange }"/>
+    <br/>
+    
+      <aura:attribute name="options" type="List" default="[
+    {'label': 'Workflow', 'value': 'Workflow'},
+    {'label': 'Validation Rule', 'value': 'ValidationRule'},
+    {'label': 'Process/Flow', 'value': 'ProcessFlow'},
+    {'label': 'Approval Process', 'value': 'ApprovalProcess'},
+    {'label': 'Apex Class', 'value': 'ApexClass'},
+    {'label': 'Apex Trigger', 'value': 'ApexTrigger'},
+    {'label': 'Email Templates', 'value': 'EmailTemplates'}
+    ]"/>
+    <aura:attribute name="value" type="String"/>
+<!-- radio buttons in horizontal view --> 
+    <lightning:radioGroup name="radioGroup"
+                          label="Get Component Metadata Details"
+                          options="{! v.options }"
+                          value="{! v.value }"
+                          type="radio"
+                          class="customRadioCls"
+                          onchange="{! c.selectRadio }"
+                          />
+    
+</aura:component>
